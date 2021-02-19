@@ -14,27 +14,36 @@
 <body>
     <main id="app">
         <h1 class="hidden">Circo - Chat App</h1>
-        <h2>Welcome to Circo.</h2>
-        <p>Here is the place where people come to talk then walk away without any commitment.</h3>
-        <h3>Which one represents you the most?</h3>
-        <div class="circlesContainer">
 
-        </div>
-        <h3>What should we call you?</h3>
-
-        <div v-if="ready">
-            <p v-for="user in info">
-                {{user.username}} {{user.type}}
+        <div v-if="!usercheck">
+            <h2>Welcome to Circo.</h2>
+            <p>Here is the place where people come to talk about their hobbies then walk away without any commitment.
             </p>
-        </div>
-
-        <div v-if="!ready">
-            <form @submit.prevent="addUser" id="userInfo" action="/chat">
+            <h3>Which circle represents you the best?</h3>
+            <div class="imgContainer">
+                <img src="images/symbol1.svg" alt="Symbol" @click="setasSymbol" id="symbol1.svg">
+                <img src="images/symbol2.svg" alt="Symbol" @click="setasSymbol" id="symbol2.svg">
+            </div>
+            <h3>What should we call you?</h3>
+            <form @submit.prevent="addUser" id="userInfo">
                 <input type="text" class="userName" placeholder="My name is" v-model="username">
                 <input type="submit" value="JOIN" class="submitButton">
             </form>
         </div>
 
+        <div id="chatApp" v-if="usercheck">
+            <div class="messages">
+                <small v-if="typing" class="fa fa-commenting-o">{{ typing }} is typing...</small>
+                <ul id="messages" v-for="message in messages">
+                    <newmessage :msg="message" :socketid="socketID"></newmessage>
+                </ul>
+            </div>
+            <div class="barBox">
+                <form @submit.prevent="dispatchMessage">
+                    <input type="text" class="writeMessage" v-model="message" placeholder="Say something...">
+                </form>
+            </div>
+        </div>
     </main>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

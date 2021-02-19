@@ -4,8 +4,9 @@ export default {
     template:
         `
     <article class="new-message" :class="{'my-message' : matchedID}">
-        <h4>{{this.username}} says:</h4>
-        <p>{{this.message}}</p>
+        <img :src="msg.message.symbol" alt="Symbol">
+        <h5>{{msg.message.name}}</h5>
+        <p>{{msg.message.content}}</p>
     </article>
     `
     ,
