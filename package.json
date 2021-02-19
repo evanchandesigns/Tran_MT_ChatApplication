@@ -1,0 +1,18 @@
+{
+  "name": "circo",
+  "version": "1.0.0",
+  "description": "A Chat App for People are Commiment Phobic",
+  "main": "index.js",
+  "scripts": {
+    "nodemon": "nodemon app",
+    "browsersync": "browser-sync start --proxy 'localhost:5050' --files '*.html' 'public'",
+    "start-dev": "npm-run-all --parallel nodemon browsersync",
+    "start": "node app"
+  },
+  "author": "Evan Chan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.1.1"
+  }
+}
