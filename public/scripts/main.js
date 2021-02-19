@@ -1,3 +1,5 @@
+import ChatMessage from "./components/MessageComponent.js"
+
 (() => {
     const socket = io();
 
@@ -5,36 +7,97 @@
         vm.socketID = sID;
     }
 
-    function appendMessage(message) {
-        vm.messages.push(message);
-    }
+    // function appendMessage(message) {
+    //     vm.messages.push(message);
+    // }
 
     const vm = new Vue({
         data: {
             messages: [],
-            typecheck: false,
-            newMessage: "",
             username: "",
+            socketID: "",
+            message: "",
+            typing: false,
+            ready: false,
+            info: [],
             connections: 0,
         },
 
+        created() {
+            window.onbeforeunload = () => {
+                socket.emit('leave', this.username);
+            }
+
+            socket.on('typing', (data) => {
+                this.typing = data;
+            });
+
+            socket.on('stopTyping', () => {
+                this.typing = false;
+            });
+
+            socket.on('joined', (data) => {
+                this.info.push({
+                    username: data,
+                    type: 'joined'
+                });
+
+                setTimeout(() => {
+                    this.info = [];
+                }, 5000);
+            });
+
+            socket.on('leave', (data) => {
+                this.info.push({
+                    username: data,
+                    type: 'left'
+                });
+
+                setTimeout(() => {
+                    this.info = [];
+                }, 5000);
+            });
+
+            socket.on('connections', (data) => {
+                this.connections = data;
+            });
+        },
+
+        watch: {
+            message(value) {
+                value ? socket.emit('typing', this.username) : socket.emit('stopTyping')
+            }
+        },
+
         methods: {
-            dispatchMessage() {
-                // debugger;
+            send() {
+                this.messages.push({
+                    message: this.message,
+                    type: 0,
+                    user: 'Me',
+                });
+
                 socket.emit('chatmessage', {
                     content: this.message,
-                    name: this.nickname || 'Annonymous'
+                    name: this.username || 'Annonymous',
+                    user: this.username
                 });
                 this.message = "";
+            },
+
+            addUser() {
+                this.ready = true;
+                socket.emit('joined', this.username)
+                window.location.href = "/chat"
             }
         },
 
         components: {
             newmessage: ChatMessage
         }
+    }).$mount("#app");
 
-    }).$mount("app");
     socket.addEventListener("connected", setUserId);
-    socket.addEventListener('message', appendMessage);
+    // socket.addEventListener('message', appendMessage);
 
 })();
