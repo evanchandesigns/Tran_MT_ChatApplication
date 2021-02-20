@@ -19,10 +19,7 @@ const server = app.listen(port, () => {
 messenger.attach(server);
 
 messenger.on('connection', (socket) => {
-    console.log(`${socket.id} has joined`);
-
-
-    socket.emit('connected', { sID: `${socket.id}`, message: 'new connection' });
+    socket.emit('connected', { sID: `${socket.id}`, message: 'A new user has joined the chat.' });
 
     socket.on('chatmessage', function (msg) {
         console.log(msg);
@@ -31,5 +28,5 @@ messenger.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         console.log('A user has disconnected');
-    })
+    });
 });

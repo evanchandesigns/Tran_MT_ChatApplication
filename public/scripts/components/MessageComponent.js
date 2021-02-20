@@ -3,11 +3,13 @@ export default {
 
     template:
         `
-    <article class="new-message" :class="{'my-message' : matchedID}">
-        <img :src="msg.message.symbol" alt="Symbol">
-        <h5>{{msg.message.name}}</h5>
+    <div class="new-message" :class="{'my-message' : matchedID}">
+        <div class="nameBox">
+            <img :src="msg.message.symbol" alt="Symbol">
+            <h5>{{msg.message.name}}</h5>
+        </div>
         <p>{{msg.message.content}}</p>
-    </article>
+    </div>
     `
     ,
 

@@ -5,44 +5,86 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
-    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
-    <title>Circo</title>
+    <title>Circo.</title>
 </head>
 
 <body>
     <main id="app">
         <h1 class="hidden">Circo - Chat App</h1>
-
-        <div v-if="!usercheck">
+        <div v-if="!usercheck" class="intro">
             <h2>Welcome to Circo.</h2>
-            <p>Here is the place where people come to talk about their hobbies then walk away without any commitment.
-            </p>
-            <h3>Which circle represents you the best?</h3>
-            <div class="imgContainer">
-                <img src="images/symbol1.svg" alt="Symbol" @click="setasSymbol" id="symbol1.svg">
-                <img src="images/symbol2.svg" alt="Symbol" @click="setasSymbol" id="symbol2.svg">
-            </div>
-            <h3>What should we call you?</h3>
-            <form @submit.prevent="addUser" id="userInfo">
-                <input type="text" class="userName" placeholder="My name is" v-model="username">
-                <input type="submit" value="JOIN" class="submitButton">
-            </form>
-        </div>
-
-        <div id="chatApp" v-if="usercheck">
-            <div class="messages">
-                <small v-if="typing" class="fa fa-commenting-o">{{ typing }} is typing...</small>
-                <ul id="messages" v-for="message in messages">
-                    <newmessage :msg="message" :socketid="socketID"></newmessage>
-                </ul>
-            </div>
-            <div class="barBox">
-                <form @submit.prevent="dispatchMessage">
-                    <input type="text" class="writeMessage" v-model="message" placeholder="Say something...">
+            <img class="deco1" src="images/deco1.svg" alt="Deco">
+            <img class="deco2" src="images/deco2.svg" alt="Deco">
+            <div class="content">
+                <p>Here is the place where people come to talk then walk away without any commitment.<br>
+                    Are you ready to be a part of it?
+                </p>
+                <h3>Which circle represents you the best?</h3>
+                <div class="selectMenu">
+                    <div class="imgContainer">
+                        <img src="images/symbol1.svg" alt="Symbol" @click="setasSymbol" id="symbol1.svg">
+                        <img src="images/symbol2.svg" alt="Symbol" @click="setasSymbol" id="symbol2.svg">
+                        <img src="images/symbol3.svg" alt="Symbol" @click="setasSymbol" id="symbol3.svg">
+                        <img src="images/symbol4.svg" alt="Symbol" @click="setasSymbol" id="symbol4.svg">
+                        <img src="images/symbol5.svg" alt="Symbol" @click="setasSymbol" id="symbol5.svg">
+                        <img src="images/symbol6.svg" alt="Symbol" @click="setasSymbol" id="symbol6.svg">
+                        <img src="images/symbol7.svg" alt="Symbol" @click="setasSymbol" id="symbol7.svg">
+                        <img src="images/symbol8.svg" alt="Symbol" @click="setasSymbol" id="symbol8.svg">
+                        <img src="images/symbol9.svg" alt="Symbol" @click="setasSymbol" id="symbol9.svg">
+                        <img src="images/symbol10.svg" alt="Symbol" @click="setasSymbol" id="symbol10.svg">
+                    </div>
+                </div>
+                <div class="yourSymbol">
+                    <p>That would be: </p>
+                    <img :src="this.symbol" alt="mysymbol">
+                </div>
+                <h3>What should we call you?</h3>
+                <form @submit.prevent="addUser">
+                    <input type="text" class="userName" placeholder="My name is" v-model="username">
+                    <input type="submit" value="JOIN" class="submitButton">
                 </form>
             </div>
+        </div>
+
+        <div class="chatApp" v-if="usercheck">
+            <h2>Circo.</h2>
+            <p class="chatIntro">Start by saying Hi.👋</p>
+            <div class="messagesArea">
+                <ul class="messages">
+                    <li v-for="message in messages">
+                        <newmessage :msg="message" :socketid="socketID"></newmessage>
+                    </li>
+                </ul>
+            </div>
+            <form @submit.prevent="dispatchMessage">
+                <div class="barBox">
+                    <div class="emoji">
+                        <small @click="insertEmoji" class="emoicon" id="0x1F600">😀</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F601">😁</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F609">😉</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F970">🥰</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F61A">😚</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F92A">🤪</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F44F">👏</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F91D">🤝</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F624">😤</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F613">😓</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F631">😱</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F914">🤔</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F496">💖</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F44B">👋</small>
+                        <small @click="insertEmoji" class="emoicon" id="0x1F44D">👍</small>
+                    </div>
+                    <input type="text" class="writeMessage" v-model="message" placeholder="Say something...">
+                    <button type="submit"><i class="fa fa-send"></i></button>
+                </div>
+            </form>
         </div>
     </main>
     <script src="/socket.io/socket.io.js"></script>
