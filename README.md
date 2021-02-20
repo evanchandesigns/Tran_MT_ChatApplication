@@ -2,7 +2,7 @@
 ![Circo Banner](public/images/banner.JPG)
 
 ## Introduction
-Built  with Socket.io, Circo is for people who want to come for a talk then leave with any commitment.
+Built  with Socket.io, Circo is for people who want to come for a talk then leave without any commitment.
 - :link:Link to Heroku: [Circo on Heroku](https://circo-chatapp.herokuapp.com/)
 
 # Technologies
