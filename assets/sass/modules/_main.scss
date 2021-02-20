@@ -262,4 +262,15 @@ p{
             transition: all 0.5s ease;
         }
     }
+    .appIntro {
+        display: flex;
+        align-items: baseline;
+        .appLogo {
+            max-width: 50px;
+            padding-left: 10px;
+            user-select: none;
+            pointer-events: none;
+            animation: rotate 5s linear infinite;
+        }
+    }
 }
